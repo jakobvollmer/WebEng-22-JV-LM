@@ -4,8 +4,8 @@ import jwt
 from api.auth import auth
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/reservations/status/')
 def index():
-    return 'Web App with Python Flask!'
+    return 'Web App with Python Flask! TEST'
 
 app.run(host='0.0.0.0', port=9000)
