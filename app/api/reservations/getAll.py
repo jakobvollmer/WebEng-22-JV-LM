@@ -1,16 +1,20 @@
 #!/usr/bin/python3
 # encoding: utf-8
 
-from flask import Blueprint
-from flask import request
+from flask import request, Response, Blueprint
+import json
 
 from api import errors
-import logging
+from db.postqresDB import get_PostqresDB
 
-getAll = Blueprint("getAll", __name__)
-log = logging.getLogger("getAll")
+getReservationsAll = Blueprint("getReservationsAll", __name__)
+postqresDB = get_PostqresDB()
 
-@getAll.route('/reservations/', methods = ['GET'])
-def index():
-    print(request.form)
-    return 'Web App with Python Flask! TEST'
+@getReservationsAll.route("/reservations", methods = ["GET"], strict_slashes=False)
+def get_reservations_all():
+    roomId = request.args.get("room_id")
+    before = request.args.get("before")
+    after = request.args.get("after")
+
+    result = postqresDB.get_all_reservations(roomId, before, after)
+    return Response(json.dumps(result),  mimetype="application/json"), 200
