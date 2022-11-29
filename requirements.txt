@@ -2,3 +2,5 @@ Flask
 pyjwt
 requests
 cryptography
+psycopg2
+sqlalchemy

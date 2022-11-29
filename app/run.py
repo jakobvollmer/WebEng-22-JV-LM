@@ -3,6 +3,10 @@ from flask import Flask
 from api.auth.auth import validateAuth
 from api.errorHandler import errorHandler
 
+from db import postqresDB
+db = postqresDB.PostqresDB()
+db.connect()
+
 app = Flask(__name__)
 
 @app.route('/reservations/', methods = ['POST'])

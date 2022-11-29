@@ -4,6 +4,11 @@ docker run --rm -ti -p 9000:9000 --net=biletado_default `
     -e KEYCLOAK_HOST="traefik" `
     -e KEYCLOAK_REALM="biletado" `
     -e JAEGER_TRACECONTEXTHEADERNAME="Uber-Trace-Id" `
+    -e POSTGRES_RESERVATIONS_USER="postgres" `
+    -e POSTGRES_RESERVATIONS_PASSWORD="postgres" `
+    -e POSTGRES_RESERVATIONS_DBNAME="reservations" `
+    -e POSTGRES_RESERVATIONS_HOST="postgres" `
+    -e POSTGRES_RESERVATIONS_PORT="5432" `
     webeng-22-jv-lm:latest
 
 # Install python libs on windows
