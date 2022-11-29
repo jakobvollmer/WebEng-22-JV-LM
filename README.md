@@ -4,19 +4,19 @@
 
 If you want to run the app locally on your pc, you need to install the required libraries. Execute the following command for this:
 
-```shell
+```powershell
     python3 -m pip install -r .\requirements.txt
 ```
 
 ## Build 
 
-```shell
+```powershell
     docker build . --tag webeng-22-jv-lm:latest
 ```
 
 ## Run app outside of compose
 
-```shell
+```powershell
     docker run --rm -ti -p 9000:9000 --net=biletado_default -h backend-reservations `
         -e KEYCLOAK_HOST="traefik" `
         -e KEYCLOAK_REALM="biletado" `
