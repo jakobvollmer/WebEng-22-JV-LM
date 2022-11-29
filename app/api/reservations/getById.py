@@ -4,7 +4,7 @@
 from flask import request, Response, Blueprint
 import json
 
-from api import errors
+from api import errors, responses
 from db.postqresDB import get_PostqresDB
 
 getReservationsById = Blueprint("getReservationsById", __name__)
@@ -14,5 +14,5 @@ postqresDB = get_PostqresDB()
 def get_reservations_by_id(id):
     result = postqresDB.get_reservation_by_id(id)
     if (result == {}):
-        return 
+        return responses.NOT_FOUND("Reservation not found.")
     return Response(json.dumps(result),  mimetype="application/json"), 200

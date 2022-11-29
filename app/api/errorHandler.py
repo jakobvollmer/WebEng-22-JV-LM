@@ -2,17 +2,17 @@
 # encoding: utf-8
 
 from flask import Blueprint
-
-from api import errors
 import logging
+
+from api import errors, responses
 
 errorHandler = Blueprint("errorHandler", __name__)
 log = logging.getLogger("errorHandler")
 
 # JsonContentCorrupt
 @errorHandler.app_errorhandler(errors.Unauthorized)
-def handle_JsonContentCorrupt(e):
+def handle_unauthorized(e):
     log.warning(e)
-    return "TEST"
+    return responses.UNAUTHORIZED("Authorization missing or failed.")
 
-errorHandler.register_error_handler(401, handle_JsonContentCorrupt)
+errorHandler.register_error_handler(401, handle_unauthorized)
