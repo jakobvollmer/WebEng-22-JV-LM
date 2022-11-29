@@ -25,9 +25,9 @@ class PostqresDB ():
 
         self._host:str = os.getenv("POSTGRES_RESERVATIONS_HOST", "localhost")
         self._port:str = os.getenv("POSTGRES_RESERVATIONS_PORT", "5432")
-        self._user:str = os.getenv("POSTGRES_RESERVATIONS_USER", "user")
-        self._pswd:str = os.getenv("POSTGRES_RESERVATIONS_PASSWORD", "pswd")
-        self._dbName:str = os.getenv("POSTGRES_RESERVATIONS_DBNAME", "dbName")
+        self._user:str = os.getenv("POSTGRES_RESERVATIONS_USER", "")
+        self._pswd:str = os.getenv("POSTGRES_RESERVATIONS_PASSWORD", "")
+        self._dbName:str = os.getenv("POSTGRES_RESERVATIONS_DBNAME", "")
 
     def connect (self) -> None:
         url = f"postgresql://{self._user}:{self._pswd}@{self._host}:{self._port}/{self._dbName}"
