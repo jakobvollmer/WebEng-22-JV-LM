@@ -1,32 +1,63 @@
 # WebEng-22-JV-LM
 
-## Install dependencies on windows host
-
-If you want to run the app locally on your pc, you need to install the required libraries. Execute the following command for this:
+## Build docker image
 
 ```powershell
-    python3 -m pip install -r .\requirements.txt
+    docker build . --tag registry.gitlab.com/jakobvollmer/webeng-22-jv-lm:latest
 ```
 
-## Build 
-
-```powershell
-    docker build . --tag webeng-22-jv-lm:latest
-```
-
-## Run app outside of compose
+## Run the container outside of compose
 
 ```powershell
     docker run --rm -ti -p 9000:9000 --net=biletado_default -h backend-reservations `
-        -e KEYCLOAK_HOST="traefik" `
-        -e KEYCLOAK_REALM="biletado" `
-        -e JAEGER_TRACECONTEXTHEADERNAME="Uber-Trace-Id" `
-        -e POSTGRES_RESERVATIONS_USER="postgres" `
-        -e POSTGRES_RESERVATIONS_PASSWORD="postgres" `
-        -e POSTGRES_RESERVATIONS_DBNAME="reservations" `
-        -e POSTGRES_RESERVATIONS_HOST="postgres" `
-        -e POSTGRES_RESERVATIONS_PORT="5432" `
-        webeng-22-jv-lm:latest
+        -e KEYCLOAK_HOST="<KEYCLOAK_HOST>" `
+        -e KEYCLOAK_REALM="<KEYCLOAK_REALM>" `
+        -e JAEGER_TRACECONTEXTHEADERNAME="<JAEGER_TRACECONTEXTHEADERNAME>" `
+        -e POSTGRES_RESERVATIONS_USER="<POSTGRES_RESERVATIONS_USER>" `
+        -e POSTGRES_RESERVATIONS_PASSWORD="<POSTGRES_RESERVATIONS_PASSWORD>" `
+        -e POSTGRES_RESERVATIONS_DBNAME="<POSTGRES_RESERVATIONS_DBNAME>" `
+        -e POSTGRES_RESERVATIONS_HOST="<POSTGRES_RESERVATIONS_HOST>" `
+        -e POSTGRES_RESERVATIONS_PORT="<POSTGRES_RESERVATIONS_PORT>" `
+        registry.gitlab.com/jakobvollmer/webeng-22-jv-lm:latest
+```
+
+## Example docker-compose configuration and related .env file
+
+Here is the `docker-compose.yml` file.
+
+```yaml
+version: "3"
+services:
+  backend-reservations:
+    image: ${BACKEND_RESERVATIONS_IMAGE_REPOSITORY}:${BACKEND_RESERVATIONS_IMAGE_VERSION}
+    depends_on:
+      - postgres
+    environment:
+      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+      JAEGER_TRACECONTEXTHEADERNAME: ${JAEGER_TRACECONTEXTHEADERNAME}
+      POSTGRES_RESERVATIONS_USER: ${POSTGRES_USER}
+      POSTGRES_RESERVATIONS_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_RESERVATIONS_DBNAME: ${POSTGRES_RESERVATIONS_DBNAME}
+      POSTGRES_RESERVATIONS_HOST: ${POSTGRES_RESERVATIONS_HOST}
+      POSTGRES_RESERVATIONS_PORT: ${POSTGRES_RESERVATIONS_PORT}
+    expose:
+      - "9000"
+    restart: unless-stopped
+```
+
+And the `.env` file.
+```.env
+BACKEND_RESERVATIONS_IMAGE_REPOSITORY=registry.gitlab.com/jakobvollmer/webeng-22-jv-lm
+BACKEND_RESERVATIONS_IMAGE_VERSION=latest
+KEYCLOAK_HOST="traefik"
+KEYCLOAK_REALM="biletado"
+JAEGER_TRACECONTEXTHEADERNAME=Uber-Trace-Id
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_RESERVATIONS_DBNAME="reservations"
+POSTGRES_RESERVATIONS_HOST=postgre
+POSTGRES_RESERVATIONS_PORT=5432
 ```
 
 ## Enviroment Variable
@@ -41,3 +72,11 @@ If you want to run the app locally on your pc, you need to install the required 
 | POSTGRES_RESERVATIONS_DBNAME   | reservation                      |                      | DB name                      |
 | POSTGRES_RESERVATIONS_HOST     | postgres                         | localhost            | DB host                      |
 | POSTGRES_RESERVATIONS_PORT     | 5432                             | 5432                 | DB port                      |
+
+## Install dependencies on windows host
+
+If you want to run the app locally on your pc, you need to install the required libraries. Execute the following command for this:
+
+```powershell
+    python3 -m pip install -r .\requirements.txt
+```
