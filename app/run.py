@@ -1,13 +1,12 @@
 from flask import Flask
-import jwt
 
-from api.auth import auth
+from api.auth.auth import validateAuth
+
 app = Flask(__name__)
 
-
 @app.route('/reservations/', methods = ['POST'])
+@validateAuth
 def index():
-    auth.validateAuth()
     return 'Web App with Python Flask! TEST'
 
 app.run(host='0.0.0.0', port=9000)
