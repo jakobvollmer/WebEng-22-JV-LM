@@ -16,6 +16,7 @@ reservations = Table(
     Column("room_id", String),
 )
 
+    
 class PostqresDB ():
     def __init__(self) -> None:
 
@@ -27,4 +28,23 @@ class PostqresDB ():
 
     def connect (self) -> None:
         url = f"postgresql://{self._user}:{self._pswd}@{self._host}:{self._port}/{self._dbName}"
-        self.engine = create_engine(url,echo = True)
+        self._engine = create_engine(url,echo = True)
+
+    def get_all_reservations (self, roomId:str, befor:str, after:str) -> list:
+        sel = select(reservations).where(reservations.c.room_id == "97d9df45-e2b1-481c-99a8-a975b73d69b1")
+        if roomId:
+            print("----")
+            print("befor: " + str(sel))
+            sel = sel
+            print("after: " + str(sel))
+
+        result = self._engine.execute(sel)
+        return result
+
+postqresDB:PostqresDB = None
+def get_PostqresDB () -> PostqresDB:
+    global postqresDB
+    if not postqresDB:
+        postqresDB = PostqresDB()
+        postqresDB.connect()
+    return postqresDB
