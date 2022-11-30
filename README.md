@@ -62,16 +62,19 @@ POSTGRES_RESERVATIONS_PORT=5432
 
 ## Enviroment Variable
 
-| Key                            | example value                    | default value        | explaination                 |
-|--------------------------------|----------------------------------|----------------------|------------------------------|
-| KEYCLOAK_HOST                  | keycloak                         | localhost            | Keycloak host                |
-| KEYCLOAK_REALM                 | biletado                         | biletado             | Keycloak realm               |
-| JAEGER_TRACECONTEXTHEADERNAME  | uber-trace-id                    | uber-trace-id        | Jaeger header name           |
-| POSTGRES_RESERVATIONS_USER     | admin                            |                      | DB username                  |
-| POSTGRES_RESERVATIONS_PASSWORD | secret                           |                      | DB password                  |
-| POSTGRES_RESERVATIONS_DBNAME   | reservation                      |                      | DB name                      |
-| POSTGRES_RESERVATIONS_HOST     | postgres                         | localhost            | DB host                      |
-| POSTGRES_RESERVATIONS_PORT     | 5432                             | 5432                 | DB port                      |
+| Key                            | example value                    | default value        | explaination                         |
+|--------------------------------|----------------------------------|----------------------|--------------------------------------|
+| KEYCLOAK_HOST                  | keycloak                         | localhost            | Keycloak host                        |
+| KEYCLOAK_REALM                 | biletado                         |                      | Keycloak realm                       |
+| RESERVATIONS_APP_PORT          | 9000                             | 9000                 | Reservation backend app listen port  |
+| JAEGER_TRACECONTEXTHEADERNAME  | uber-trace-id                    | uber-trace-id        | Jaeger header name                   |
+| POSTGRES_RESERVATIONS_USER     | admin                            |                      | DB username                          |
+| POSTGRES_RESERVATIONS_PASSWORD | secret                           |                      | DB password                          |
+| POSTGRES_RESERVATIONS_DBNAME   | reservation                      |                      | DB name                              |
+| POSTGRES_RESERVATIONS_HOST     | postgres                         | localhost            | DB host                              |
+| POSTGRES_RESERVATIONS_PORT     | 5432                             | 5432                 | DB port                              |
+| LOG_LEVEL                      | DEBUG                            | INFO                 | Log level of app                     |
+| LOG_TO_CONSOLE                 | True                             | False                | If True app output log to console    |
 
 ## Install dependencies on windows host
 
