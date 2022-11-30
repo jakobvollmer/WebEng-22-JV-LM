@@ -4,7 +4,6 @@
 from flask import request, Response, Blueprint
 import json
 
-from api import errors
 from db.postqresDB import get_PostqresDB
 
 getReservationsAll = Blueprint("getReservationsAll", __name__)
