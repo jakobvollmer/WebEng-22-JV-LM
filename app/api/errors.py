@@ -3,8 +3,5 @@
 class Unauthorized (Exception):
     pass
 
-class NotFound (Exception):
-    pass
-
 class InternalServerError (Exception):
     pass
