@@ -8,6 +8,7 @@ from sqlalchemy import Table, Column, Integer, String, MetaData, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
+from const import DEFAULTS
 from api import errors
 
 metadata_obj = MetaData()
@@ -22,12 +23,11 @@ reservations = Table(
 
 class PostqresDB ():
     def __init__(self) -> None:
-
-        self._host:str = os.getenv("POSTGRES_RESERVATIONS_HOST", "localhost")
-        self._port:str = os.getenv("POSTGRES_RESERVATIONS_PORT", "5432")
-        self._user:str = os.getenv("POSTGRES_RESERVATIONS_USER", "")
-        self._pswd:str = os.getenv("POSTGRES_RESERVATIONS_PASSWORD", "")
-        self._dbName:str = os.getenv("POSTGRES_RESERVATIONS_DBNAME", "")
+        self._host:str = os.getenv("POSTGRES_RESERVATIONS_HOST", DEFAULTS.POSTGRES_RESERVATIONS_HOST)
+        self._port:str = os.getenv("POSTGRES_RESERVATIONS_PORT", DEFAULTS.POSTGRES_RESERVATIONS_PORT)
+        self._user:str = os.getenv("POSTGRES_RESERVATIONS_USER", DEFAULTS.POSTGRES_RESERVATIONS_USER)
+        self._pswd:str = os.getenv("POSTGRES_RESERVATIONS_PASSWORD", DEFAULTS.POSTGRES_RESERVATIONS_PASSWORD)
+        self._dbName:str = os.getenv("POSTGRES_RESERVATIONS_DBNAME", DEFAULTS.POSTGRES_RESERVATIONS_DBNAME)
 
     def connect (self) -> None:
         url = f"postgresql://{self._user}:{self._pswd}@{self._host}:{self._port}/{self._dbName}"
