@@ -4,8 +4,7 @@ from distutils.util import strtobool
 from flask import Flask
 
 from api.errorHandler import errorHandler
-from api.reservations.getAll import getReservationsAll
-from api.reservations.getById import getReservationsById
+from api.reservations.reservations import reservations
 
 from db.postqresDB import get_PostqresDB
 
@@ -27,6 +26,5 @@ db = get_PostqresDB()
 
 app = Flask(__name__)
 app.register_blueprint(errorHandler)
-app.register_blueprint(getReservationsAll)
-app.register_blueprint(getReservationsById)
+app.register_blueprint(reservations)
 app.run(host="0.0.0.0", port=os.getenv("RESERVATIONS_APP_PORT", DEFAULTS.RESERVATIONS_APP_PORT))
