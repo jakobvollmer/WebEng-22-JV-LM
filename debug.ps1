@@ -6,6 +6,11 @@
 # docker login registry.gitlab.com
 # Username + acces token
 
+get-content .env | foreach {
+    $name, $value = $_.split('=')
+    set-content env:\$name $value
+}
+
 function info {
     write-host "You need to choose a build tag <local|remote>"
     write-host "-> local: uses tag for local image."
@@ -40,18 +45,19 @@ if ($cmd -eq "remote") {
 
 if (-not ([string]::IsNullOrEmpty($run))) {
     if ($run -eq "run") {
-        docker run --rm -ti -p 9000:9000 --net=biletado_default -h backend-reservations `
-            -e KEYCLOAK_HOST="traefik" `
-            -e KEYCLOAK_REALM="biletado" `
-            -e JAEGER_TRACECONTEXTHEADERNAME="Uber-Trace-Id" `
-            -e POSTGRES_RESERVATIONS_USER="postgres" `
-            -e POSTGRES_RESERVATIONS_PASSWORD="postgres" `
-            -e POSTGRES_RESERVATIONS_DBNAME="reservations" `
-            -e POSTGRES_RESERVATIONS_HOST="postgres" `
-            -e POSTGRES_RESERVATIONS_PORT="5432" `
-            -e LOG_TO_CONSOLE=True `
-            -e LOG_LEVEL="DEBUG" `
-            -e RESERVATIONS_APP_PORT=9000 `
+        docker run --rm -ti -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT --net=biletado_default -h backend-reservations `
+            -e RESERVATIONS_APP_PORT=$ENV:RESERVATION_PORT `
+            -e KEYCLOAK_HOST=$Env:KEYCLOAK_HOST `
+            -e KEYCLOAK_REALM=$Env:KEYCLOAK_REALM `
+            -e JAEGER_TRACECONTEXTHEADERNAME=$Env:JAEGER_TRACECONTEXTHEADERNAME `
+            -e POSTGRES_RESERVATIONS_USER=$Env:POSTGRES_RESERVATIONS_USER `
+            -e POSTGRES_RESERVATIONS_PASSWORD=$Env:POSTGRES_RESERVATIONS_PASSWORD `
+            -e POSTGRES_RESERVATIONS_DBNAME=$Env:POSTGRES_RESERVATIONS_DBNAME `
+            -e POSTGRES_RESERVATIONS_HOST=$Env:POSTGRES_RESERVATIONS_HOST `
+            -e POSTGRES_RESERVATIONS_PORT=$Env:POSTGRES_RESERVATIONS_PORT `
+            -e LOG_LEVEL=$Env:LOG_LEVEL `
+            -e LOG_TO_CONSOLE=$Env:LOG_TO_CONSOLE `
+            -v $Env:LOG_FILE_PATH_HOST":/log/" `
             $imageTag
     }
 }
