@@ -30,8 +30,13 @@ class PostqresDB ():
         self._dbName:str = os.getenv("POSTGRES_RESERVATIONS_DBNAME", DEFAULTS.POSTGRES_RESERVATIONS_DBNAME)
 
     def connect (self) -> None:
-        url = f"postgresql://{self._user}:{self._pswd}@{self._host}:{self._port}/{self._dbName}"
-        self._engine = create_engine(url,echo = True)
+        url:str = f"postgresql://{self._user}:{self._pswd}@{self._host}:{self._port}/{self._dbName}"
+        echo = False
+        logLevel:str = os.getenv("LOG_LEVEL", DEFAULTS.LOG_LEVEL).upper()
+        if (logLevel == "DEBUG" or logLevel == "INFO"):
+            echo:bool = True
+
+        self._engine = create_engine(url, echo=echo)
 
     def get_all_reservations (self, roomId:str, beforeStr:str, afterStr:str) -> json:
         sel = select(reservations)
