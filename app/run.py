@@ -3,7 +3,7 @@ from const import DEFAULTS
 from distutils.util import strtobool
 from flask import Flask
 
-from api.errorHandler import errorHandler
+from api import errorHandler
 from api.reservations.reservations import reservations
 
 from db.postqresDB import get_PostqresDB
@@ -25,6 +25,10 @@ log.info("Init app...")
 db = get_PostqresDB()
 
 app = Flask(__name__)
-app.register_blueprint(errorHandler)
+app.register_blueprint(errorHandler.errorHandler)
 app.register_blueprint(reservations)
+
+app.register_error_handler(400, errorHandler.handle_mismatching_json_object)
+app.register_error_handler(500, errorHandler.handle_internal_server_error)
+
 app.run(host="0.0.0.0", port=os.getenv("RESERVATIONS_APP_PORT", DEFAULTS.RESERVATIONS_APP_PORT))
