@@ -3,7 +3,7 @@
 
 import os, datetime, json
 from sqlalchemy import create_engine
-from sqlalchemy.sql import select
+from sqlalchemy import delete, select
 from sqlalchemy import Table, Column, Integer, String, MetaData, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
@@ -78,6 +78,10 @@ class PostqresDB ():
             "room_id": rows[3]
         }
         return buff
+
+    def delete_reservation_by_id (self, reservationId:str) -> None:
+        sel = delete(reservations).where(reservations.c.id == reservationId)
+        self._engine.execute(sel)
 
 postqresDB:PostqresDB = None
 def get_PostqresDB () -> PostqresDB:
