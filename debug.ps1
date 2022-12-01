@@ -6,19 +6,18 @@
 # docker login registry.gitlab.com
 # Username + acces token
 
-get-content .env | foreach {
-    $name, $value = $_.split('=')
-    set-content env:\$name $value
-}
-
 function info {
     write-host "You need to choose a build tag <local|remote>"
     write-host "-> local: uses tag for local image."
     write-host "-> remote: uses tag for gitlab-docker-registry and pushes docker image on gitlab-docker-registry."
     write-host "-------- optional args --------"
     write-host "<run> as second command. If set a example container starts."
-
     exit
+}
+
+get-content .env | foreach {
+    $name, $value = $_.split('=')
+    set-content env:\$name $value
 }
 
 $cmd=$args[0]
