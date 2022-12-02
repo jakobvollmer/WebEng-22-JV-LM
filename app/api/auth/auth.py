@@ -5,12 +5,13 @@ from flask import request
 from functools import wraps
 import json, jwt, os, requests
 
+from const import DEFAULTS
 from api import errors
 
 def getPublicKeyFromKeycloak () -> str:
-    keycloakHost:str = os.getenv("KEYCLOAK_HOST", "localhost")
-    keycloakRealm:str = os.getenv("KEYCLOAK_REALM", "biletado")
-    jaegerTracecontextheadername:str = os.getenv("JAEGER_TRACECONTEXTHEADERNAME", "uber-trace-id")
+    keycloakHost:str = os.getenv("KEYCLOAK_HOST", DEFAULTS.KEYCLOAK_HOST)
+    keycloakRealm:str = os.getenv("KEYCLOAK_REALM", DEFAULTS.KEYCLOAK_REALM)
+    jaegerTracecontextheadername:str = os.getenv("JAEGER_TRACECONTEXTHEADERNAME",  DEFAULTS.JAEGER_TRACECONTEXTHEADERNAME)
 
     headers:dict = {}
     if jaegerTracecontextheadername in request.headers:

@@ -2,3 +2,12 @@
 # encoding: utf-8
 class Unauthorized (Exception):
     pass
+
+class InternalServerError (Exception):
+    pass
+
+class MismatchingJsonObject (Exception):
+    pass
+
+class RoomNotFound (Exception):
+    pass
