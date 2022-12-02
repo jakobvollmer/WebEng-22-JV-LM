@@ -1,8 +1,6 @@
 from jsonschema import validate
 import json
 
-from api import errors
-
 RESERVATION = {
     "type": "object",
     "properties": {

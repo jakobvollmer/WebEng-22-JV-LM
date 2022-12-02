@@ -34,7 +34,7 @@ class PostqresDB ():
         echo = False
         logLevel:str = os.getenv("LOG_LEVEL", DEFAULTS.LOG_LEVEL).upper()
         if (logLevel == "DEBUG" or logLevel == "INFO"):
-            echo:bool = True
+            echo:bool = False
 
         self._engine = create_engine(url, echo=echo)
 
@@ -69,10 +69,9 @@ class PostqresDB ():
         sel = sel.where(reservations.c.id != reservationId)
 
         rows = self._engine.execute(sel)
-
-        if (rows == {}):
-            return True
-        return False
+        for row in rows:
+            return False
+        return True
 
     def get_reservation_by_id (self, reservationId:str) -> json:
         rows= []

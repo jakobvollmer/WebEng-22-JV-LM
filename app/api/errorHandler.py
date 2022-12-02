@@ -19,11 +19,9 @@ def handle_unauthorized(e):
 @errorHandler.app_errorhandler(errors.InternalServerError)
 def handle_internal_server_error(e):
     log.warning("Exception InternalServerError raised. Exception: " + str(e))
-    return responses.InternalServerError()
+    return responses.INTERNAL_SERVER_ERROR()
 
 # MismatchingJsonObject
-@errorHandler.app_errorhandler(errors.MismatchingJsonObject)
-@errorHandler.app_errorhandler(errors.RoomNotFound)
 def handle_mismatching_json_object(e):
     log.warning("Exception MismatchingJsonObject raised. Exception: " + str(e))
-    return responses.MismatchingJsonObject()
+    return responses.MISMATCHING_JSON_OBJECT()

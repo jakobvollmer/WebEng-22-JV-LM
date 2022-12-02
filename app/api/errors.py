@@ -5,9 +5,3 @@ class Unauthorized (Exception):
 
 class InternalServerError (Exception):
     pass
-
-class MismatchingJsonObject (Exception):
-    pass
-
-class RoomNotFound (Exception):
-    pass

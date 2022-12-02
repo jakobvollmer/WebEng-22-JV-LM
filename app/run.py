@@ -26,9 +26,9 @@ db = get_PostqresDB()
 
 app = Flask(__name__)
 app.register_blueprint(errorHandler.errorHandler)
-app.register_blueprint(reservations)
-
 app.register_error_handler(400, errorHandler.handle_mismatching_json_object)
 app.register_error_handler(500, errorHandler.handle_internal_server_error)
+
+app.register_blueprint(reservations)
 
 app.run(host="0.0.0.0", port=os.getenv("RESERVATIONS_APP_PORT", DEFAULTS.RESERVATIONS_APP_PORT))
