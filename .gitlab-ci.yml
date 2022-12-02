@@ -44,6 +44,8 @@ dummy_stage:
   stage: test
   script:
     - git clone https://gitlab.com/biletado/compose.git
+    - python --version
+    - docker-compose --version
     - apt-get install -y python-pip
     - python -m pip install pyyaml
     - python ./test/copyCompose.py
