@@ -40,16 +40,20 @@ def delete_reservation_by_id(id):
     return Response(), 204
 
 @reservations.route("/reservations/<id>", methods = ["PUT"], strict_slashes=False)
-@validateAuth
+#@validateAuth
 def add_reservation_by_id(id):
     data = request.get_json() 
-    checkJsonFormat.check(data, checkJsonFormat.RESERVATION)
-    rooms.roomExists(data["room_id"])
+    if not checkJsonFormat.isValid(data, checkJsonFormat.RESERVATION):
+        log.info("Could not add/change reservation because json format is invalid")
+        return responses.MismatchingJsonObject()
 
-    reservations = postqresDB.get_all_reservations(data["room_id"], data["to"], data["from"])
-    for res in reservations:
-        if res["id"] != id:
-            raise errors.MismatchingJsonObject("Room alredy taken")
+    if not rooms.roomExists(data["room_id"]):
+        log.info("Could not add/change reservation because room does not exist.")
+        return responses.MismatchingJsonObject()
+
+    if not postqresDB.room_has_no_other_reservation(id, data["room_id"], data["to"], data["from"]):
+        log.info("Could not add/change reservation, because room is already taken in time span.")
+        return responses.MismatchingJsonObject()
 
     result = postqresDB.get_reservation_by_id(id)
     if (result == {}):

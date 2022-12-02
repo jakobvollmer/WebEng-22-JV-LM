@@ -14,9 +14,9 @@ RESERVATION = {
     "required": ["id", "from", "to", "room_id"],
 }
 
-def check (instance:json, schema:json) -> None:
+def isValid (instance:json, schema:json) -> bool:
     try:
         validate(instance=instance, schema=schema)
-        return
+        return True
     except Exception as e:
-        raise errors.MismatchingJsonObject(e)
+        return False

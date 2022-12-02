@@ -61,6 +61,19 @@ class PostqresDB ():
                 })
         return result
 
+    def room_has_no_other_reservation (self, reservationId:str, roomId:str, beforeStr:str, afterStr:str) -> bool:
+        sel = select(reservations)
+        sel = sel.where(reservations.c.room_id == roomId)
+        sel = sel.where(reservations.c.From <= datetime.datetime.strptime(beforeStr, "%Y-%m-%d"))
+        sel = sel.where(reservations.c.To >= datetime.datetime.strptime(afterStr, "%Y-%m-%d"))
+        sel = sel.where(reservations.c.id != reservationId)
+
+        rows = self._engine.execute(sel)
+
+        if (rows == {}):
+            return True
+        return False
+
     def get_reservation_by_id (self, reservationId:str) -> json:
         rows= []
         try:
