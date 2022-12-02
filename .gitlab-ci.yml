@@ -11,9 +11,8 @@
 # for the default branch and all other (MR) branches.
 stages:
   - build
-  - test
 
-.docker-build:
+docker-build:
   # Use the official docker image.
   image: docker:latest
   stage: build
@@ -39,15 +38,4 @@ stages:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
-
-dummy_stage:
-  stage: test
-  script:
-    - git clone https://gitlab.com/biletado/compose.git
-    - python --version
-    - docker-compose --version
-    - apt-get install -y python-pip
-    - python -m pip install pyyaml
-    - python ./test/copyCompose.py
-
 
