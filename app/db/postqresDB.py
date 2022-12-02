@@ -41,7 +41,6 @@ class PostqresDB ():
     def get_all_reservations (self, roomId:str, beforeStr:str, afterStr:str) -> json:
         sel = select(reservations)
 
-        # Add filters
         if roomId:
             sel = sel.where(reservations.c.room_id == roomId)
         if beforeStr:
@@ -50,7 +49,6 @@ class PostqresDB ():
             sel = sel.where(reservations.c.To >= datetime.datetime.strptime(afterStr, "%Y-%m-%d"))
         rows = self._engine.execute(sel)
 
-        # Create result list
         result = []
         for row in rows:
             result.append({

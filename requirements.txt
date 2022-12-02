@@ -5,3 +5,4 @@ cryptography
 psycopg2
 sqlalchemy
 jsonschema
+pyyaml

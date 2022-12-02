@@ -13,7 +13,7 @@ stages:
   - build
   - test
 
-docker-build:
+.docker-build:
   # Use the official docker image.
   image: docker:latest
   stage: build
@@ -44,6 +44,6 @@ dummy_stage:
   stage: test
   script:
     - git clone https://gitlab.com/biletado/compose.git
-    - ls
+    - python3 ./test/copyCompose.py
 
 
