@@ -9,6 +9,9 @@
 #
 # This template uses one generic job with conditional builds
 # for the default branch and all other (MR) branches.
+stages:
+  - build
+  - test
 
 docker-build:
   # Use the official docker image.
@@ -38,6 +41,9 @@ docker-build:
         - Dockerfile
 
 dummy_stage:
+  stage: test
   script:
     - git clone https://gitlab.com/biletado/compose.git
+    - ls
+
 
