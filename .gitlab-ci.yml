@@ -53,7 +53,8 @@ prepareTest:
 test:
   image: tmaier/docker-compose:latest
   stage: test
-  needs: ["prepareTest"]
+  artifacts:
+    untracked: true
   script:
     - ls 
     - docker-compose version
