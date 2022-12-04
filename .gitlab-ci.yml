@@ -49,6 +49,7 @@ prepareTest:
     - apt-get install -y python3 python3-pip
     - python3 -m pip install pyyaml
     - python3 ./test/copyCompose.py
+    - cp .env ./compose/.env
     - tar -zcvf compose.tar.gz compose
   artifacts:
     paths:
