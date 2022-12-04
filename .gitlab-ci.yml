@@ -11,6 +11,7 @@
 # for the default branch and all other (MR) branches.
 stages:
   - build
+  - prepareTest
   - test
 
 .docker-build:
@@ -41,7 +42,7 @@ stages:
         - Dockerfile
 
 prepareTest:
-  stage: test
+  stage: prepareTest
   script:
     - git clone https://gitlab.com/biletado/compose.git
     - apt-get update -qy
