@@ -44,7 +44,7 @@ test:
   stage: test
   script:
     - git clone https://gitlab.com/biletado/compose.git
-    - pip3 install pyyaml
+    - pip install pyyaml
     - python3 ./test/copyCompose.py
     - python -m pip install pyyaml
     - python ./test/copyCompose.py
