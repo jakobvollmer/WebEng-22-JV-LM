@@ -1,16 +1,14 @@
 import yaml
 from yaml.loader import SafeLoader
-from os import listdir, system
-print(listdir())
 
 compose:str = ""
 composeBackend:str = ""
-with open("/compose/compose.yml") as f:
+with open("./compose/compose.yaml") as f:
     compose = yaml.load(f, Loader=SafeLoader)
 
-with open("/compose.yml") as f:
+with open("./compose.yaml") as f:
     composeBackend = yaml.load(f, Loader=SafeLoader)
 
 compose["services"]["backend-reservations"] = composeBackend["services"]["backend-reservations"]
-with open("/compose/compose.yml", 'w') as f:
+with open("./compose/compose.yaml", 'w') as f:
     data = yaml.dump(compose, f)
