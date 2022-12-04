@@ -43,5 +43,12 @@ stages:
 test:
   image: tmaier/docker-compose:latest
   stage: test
+  before_script:
+    - git clone https://gitlab.com/biletado/compose.git
+    - apt-get update -qy
+    - apt-get install -y python3 python3-pip
+    - python3 -m pip install pyyaml
+    - python3 ./test/copyCompose.py
   script:
+    - ls 
     - docker-compose version
