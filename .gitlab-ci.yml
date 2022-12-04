@@ -57,6 +57,7 @@ prepareTest:
 test:
   image: tmaier/docker-compose:latest
   stage: test
+  dependencies: ["prepareTest"]
   artifacts:
     paths:
     - compose.tar.gz
