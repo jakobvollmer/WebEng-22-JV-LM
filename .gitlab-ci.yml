@@ -53,6 +53,7 @@ prepareTest:
 test:
   image: tmaier/docker-compose:latest
   stage: test
+  needs: ["prepareTest"]
   script:
     - ls 
     - docker-compose version
