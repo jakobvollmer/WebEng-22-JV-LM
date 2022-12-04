@@ -11,8 +11,9 @@
 # for the default branch and all other (MR) branches.
 stages:
   - build
+  - test
 
-docker-build:
+.docker-build:
   # Use the official docker image.
   image: docker:latest
   stage: build
@@ -39,3 +40,11 @@ docker-build:
       exists:
         - Dockerfile
 
+test:
+  stage: test
+  script:
+    - git clone https://gitlab.com/biletado/compose.git
+    - pip3 install pyyaml
+    - python3 ./test/copyCompose.py
+    - python -m pip install pyyaml
+    - python ./test/copyCompose.py
