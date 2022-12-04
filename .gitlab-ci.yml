@@ -62,6 +62,7 @@ test:
     paths:
     - compose.tar.gz
   script:
-    - ls
     - tar -zxvf compose.tar.gz
     - docker-compose version
+    - cd compose
+    - docker-compose up
