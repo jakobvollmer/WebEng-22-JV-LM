@@ -1,5 +1,7 @@
 import yaml
 from yaml.loader import SafeLoader
+from os import listdir, system
+print(listdir())
 
 compose:str = ""
 composeBackend:str = ""
