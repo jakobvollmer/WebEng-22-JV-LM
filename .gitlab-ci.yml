@@ -48,6 +48,6 @@ Test:
     - apk upgrade
     - apk add python3 
     - docker --version
-    - docker run --name dogger --rm -ti --net=biletado_default -h backend-reservations -p 80:9000 $$CI_REGISTRY_IMAGE${tag} 
+    - docker run --name dogger --rm --net=biletado_default -h backend-reservations -p 80:9000 $$CI_REGISTRY_IMAGE${tag} 
     - python3 test/dbtest.py
     - docker stop dogger
