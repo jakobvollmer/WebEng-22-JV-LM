@@ -42,11 +42,12 @@ stages:
 
 Test:
   stage: test
+  image: docker:latest
   script:
-    - apt-get update -qy
-    - apt-get install -y python3 python3-pip
-    - apt-get install -y docker 
-    - /bin/docker --version
-    - /bin/docker run --name dogger --rm -ti -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT --net=biletado_default -h backend-reservations -p 80:9000 $$CI_REGISTRY_IMAGE${tag} 
+    - apk update
+    - apk upgrade
+    - apk add python3 
+    - docker --version
+    - docker run --name dogger --rm -ti -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT --net=biletado_default -h backend-reservations -p 80:9000 $$CI_REGISTRY_IMAGE${tag} 
     - python3 test/dbtest.py
-    - /bin/docker stop dogger
+    - docker stop dogger
