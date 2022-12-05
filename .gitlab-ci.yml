@@ -11,6 +11,7 @@
 # for the default branch and all other (MR) branches.
 stages:
   - build
+  - prepareTest
 
 .docker-build:
   # Use the official docker image.
@@ -38,4 +39,11 @@ stages:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
+
+prepareTest:
+  stage: prepareTest
+  script:
+    - apt-get update -qy
+    - apt-get install -y python3 python3-pip
+    - apt-get install docker 
     
