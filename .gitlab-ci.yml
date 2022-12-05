@@ -11,8 +11,6 @@
 # for the default branch and all other (MR) branches.
 stages:
   - build
-  - prepareTest
-  - test
 
 .docker-build:
   # Use the official docker image.
@@ -40,30 +38,4 @@ stages:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
-
-prepareTest:
-  stage: prepareTest
-  script:
-    - git clone https://gitlab.com/biletado/compose.git
-    - apt-get update -qy
-    - apt-get install -y python3 python3-pip
-    - python3 -m pip install pyyaml
-    - python3 ./test/copyCompose.py
-    - cp .env ./compose/.env
-    - tar -zcvf compose.tar.gz compose
-  artifacts:
-    paths:
-    - compose.tar.gz
     
-test:
-  image: tmaier/docker-compose:latest
-  stage: test
-  dependencies: ["prepareTest"]
-  artifacts:
-    paths:
-    - compose.tar.gz
-  script:
-    - tar -zxvf compose.tar.gz
-    - docker-compose version
-    - cd compose
-    - docker-compose up

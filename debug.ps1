@@ -58,6 +58,7 @@ if (-not ([string]::IsNullOrEmpty($run))) {
             -e LOG_LEVEL=$Env:LOG_LEVEL `
             -e LOG_TO_CONSOLE=$Env:LOG_TO_CONSOLE `
             -v $Env:LOG_FILE_PATH_HOST":/log/" `
+            -p 80:9000 `
             $imageTag
     }
 }
