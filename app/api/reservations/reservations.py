@@ -2,7 +2,8 @@
 # encoding: utf-8
 
 from flask import request, Response, Blueprint
-import json, logging
+from typing import Tuple
+import json, logging, uuid
 
 from db.postqresDB import get_PostqresDB
 from api.auth import auth
@@ -46,6 +47,18 @@ def delete_reservation_by_id(id):
 
 @reservations.route("/reservations/<id>", methods = ["PUT"], strict_slashes=False)
 def add_reservation_by_id(id):
+    return putReservation(id)
+
+@reservations.route("/reservations/", methods = ["POST"], strict_slashes=False)
+def post_reservation():
+    data = request.get_json() 
+    if "id" in data:
+        log.info("Calling put")
+        return putReservation(data["id"])
+    id = str(uuid.uuid4())
+    return putReservation(id)
+
+def putReservation (id:str) -> Tuple[Response, int]:
     # Check if reservation exists. If yes than the authentication has to be validated.
     reservationById = postqresDB.get_reservation_by_id(id)
     if (reservationById != {}):

@@ -9,7 +9,7 @@ RESERVATION = {
         "to": {"type": "string", "minLength":1},
         "room_id": {"type": "string", "minLength":1},
     },
-    "required": ["id", "from", "to", "room_id"],
+    "required": ["from", "to", "room_id"],
 }
 
 def isValid (instance:json, schema:json) -> bool:
