@@ -11,7 +11,7 @@
 # for the default branch and all other (MR) branches.
 stages:
   - build
-  - prepareTest
+  - test
 
 .docker-build:
   # Use the official docker image.
@@ -40,10 +40,12 @@ stages:
       exists:
         - Dockerfile
 
-prepareTest:
-  stage: prepareTest
+Test:
+  stage: test
   script:
     - apt-get update -qy
     - apt-get install -y python3 python3-pip
-    - apt-get install docker 
-    
+    - apt-get install -y docker
+    - docker run --name dogger --rm -ti -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT --net=biletado_default -h backend-reservations -p 80:9000 $$CI_REGISTRY_IMAGE${tag} 
+    - python3 test/dbtest.py
+    - docker stop dogger
