@@ -64,7 +64,8 @@ Test:
   stage: test
   image: docker:latest
   services:
-    - docker:dind
+    - name: docker:dind
+      alias: localhost
   script:
     - apk update
     - apk upgrade
@@ -77,6 +78,6 @@ Test:
     - docker ps -a
     - sleep 15
     - docker ps -a
-    - curl docker:80
+    - curl localhost:80/reservations/status/
     - python3 test/dbtest.py
     - docker stop dogger
