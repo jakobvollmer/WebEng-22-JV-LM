@@ -78,6 +78,11 @@ def put_reservation (id:str) -> Tuple[Response, int]:
         log.info("Could not add/change reservation because json format is invalid")
         return responses.MISMATCHING_JSON_OBJECT()
 
+    # Check if id in body and url are the same
+    if "id" in data:
+        if data["id"] != id:
+            return responses.MISMATCHING_JSON_OBJECT()
+            
     # Check if the room exists.
     if not rooms.roomExists(data["room_id"]):
         log.info("Could not add/change reservation because room does not exist.")
