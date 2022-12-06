@@ -50,6 +50,7 @@ Test:
     - apk upgrade
     - apk add python3 
     - docker --version
+    - docker system info
     - docker run --name dogger hello-world
     - python3 test/dbtest.py
     - docker stop dogger
