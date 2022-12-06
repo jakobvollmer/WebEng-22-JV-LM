@@ -36,8 +36,11 @@ class PostqresDB ():
         if (logLevel == "DEBUG" or logLevel == "INFO"):
             echo:bool = False
 
-        self._engine = create_engine(url, echo=echo)
-
+        try:
+            self._engine = create_engine(url, echo=echo)
+        except:
+            pass
+        
     def get_all_reservations (self, roomId:str, beforeStr:str, afterStr:str) -> json:
         sel = select(reservations)
 
