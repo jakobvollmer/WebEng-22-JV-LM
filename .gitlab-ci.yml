@@ -44,7 +44,7 @@ Test:
   stage: test
   image: docker:latest
   services:
-    - docker:bind
+    - docker:latest
   script:
     - apk update
     - apk upgrade
