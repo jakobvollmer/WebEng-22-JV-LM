@@ -33,7 +33,7 @@ stages:
   - build
   - test
 
-.docker-build:
+docker-build:
   # Use the official docker image.
   image: docker:latest
   stage: build
