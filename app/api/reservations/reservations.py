@@ -45,20 +45,27 @@ def delete_reservation_by_id(id):
     postqresDB.delete_reservation_by_id(id)
     return Response(), 204
 
+# This method just forwards the put request to the put_reservation method
 @reservations.route("/reservations/<id>", methods = ["PUT"], strict_slashes=False)
 def add_reservation_by_id(id):
-    return putReservation(id)
+    return put_reservation(id)
 
+# This method just forwards the put request to the put_reservation method
 @reservations.route("/reservations/", methods = ["POST"], strict_slashes=False)
 def post_reservation():
-    data = request.get_json() 
+    data = request.get_json()
+
+    # If there's an id given in the post request it forwards the request to the put_reservation method
+    # This is specified in the apidocs: "If the post method is called with an id, the put method is called"
     if "id" in data:
         log.info("Calling put")
-        return putReservation(data["id"])
-    id = str(uuid.uuid4())
-    return putReservation(id)
+        return put_reservation(data["id"])
 
-def putReservation (id:str) -> Tuple[Response, int]:
+    # If there is no id given create a uuid4 id and call the put_reservation method with the created id
+    id = str(uuid.uuid4())
+    return put_reservation(id)
+
+def put_reservation (id:str) -> Tuple[Response, int]:
     # Check if reservation exists. If yes than the authentication has to be validated.
     reservationById = postqresDB.get_reservation_by_id(id)
     if (reservationById != {}):
