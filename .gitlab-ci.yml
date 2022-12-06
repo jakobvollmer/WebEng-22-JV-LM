@@ -50,7 +50,7 @@ Test:
     - apk upgrade
     - apk add python3
     - apk add py3-pip
-    - python3 -m pip install requests unittest json
+    - python3 -m pip install requests
     - docker run --name dogger --rm --net=biletado_default -h backend-reservations -p 80:9000 $CI_REGISTRY_IMAGE${tag} 
     - python3 test/dbtest.py
     - docker stop dogger
