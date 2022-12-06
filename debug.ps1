@@ -44,7 +44,7 @@ if ($cmd -eq "remote") {
 
 if (-not ([string]::IsNullOrEmpty($run))) {
     if ($run -eq "run") {
-        docker run --rm -ti -d -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT -h backend-reservations `
+        docker run --rm -ti -d -h backend-reservations `
             -e RESERVATIONS_APP_PORT=$ENV:RESERVATION_PORT `
             -e KEYCLOAK_HOST=$Env:KEYCLOAK_HOST `
             -e KEYCLOAK_REALM=$Env:KEYCLOAK_REALM `
@@ -58,7 +58,6 @@ if (-not ([string]::IsNullOrEmpty($run))) {
             -e LOG_LEVEL=$Env:LOG_LEVEL `
             -e LOG_TO_CONSOLE=$Env:LOG_TO_CONSOLE `
             -v $Env:LOG_FILE_PATH_HOST":/log/" `
-            -p 80:9000 `
             $imageTag
     }
 }
