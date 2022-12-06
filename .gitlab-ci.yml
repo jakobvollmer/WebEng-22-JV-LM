@@ -60,7 +60,7 @@ docker-build:
       exists:
         - Dockerfile
 
-Test:
+get-status:
   stage: test
   image: docker:latest
   services:
