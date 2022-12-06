@@ -74,11 +74,11 @@ Test:
     - python3 -m pip install requests
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - mkdir log
-    - docker run -d --name dogger -v /log/:/log/ --rm -p 80:9000 $CI_REGISTRY_IMAGE${tag} 
+    - docker run -d --name dogger -v log/:/log/ --rm -p 80:9000 $CI_REGISTRY_IMAGE${tag} 
     - docker ps -a
     - sleep 15
     - docker ps -a
     - curl docker:80/reservations/status/
-    - more /log/app.log
+    - more log/app.log
     - python3 test/dbtest.py
     - docker stop dogger
