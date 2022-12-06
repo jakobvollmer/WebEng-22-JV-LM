@@ -75,6 +75,9 @@ Test:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker run -d --name dogger --rm -p 80:9000 $CI_REGISTRY_IMAGE${tag} 
     - sleep 15
-    - curl docker:80/reservations/status/
+    - curl docker/reservations/status/
+    - curl docker/reservations/status
+    - curl localhost/reservations/status/
+    - curl localhost/reservations/status
     - python3 test/dbtest.py
     - docker stop dogger
