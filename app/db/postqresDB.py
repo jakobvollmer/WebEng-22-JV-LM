@@ -34,7 +34,7 @@ class PostqresDB ():
         echo = False
         logLevel:str = os.getenv("LOG_LEVEL", DEFAULTS.LOG_LEVEL).upper()
         if (logLevel == "DEBUG" or logLevel == "INFO"):
-            echo:bool = False
+            echo:bool = True
 
         try:
             self._engine = create_engine(url, echo=echo)
