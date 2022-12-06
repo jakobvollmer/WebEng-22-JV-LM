@@ -43,8 +43,9 @@ stages:
 Test:
   stage: test
   image: docker:latest
-  services: 
-    - docker:dind
+  services:
+    - name: docker:dind
+      alias: localhost
   script:
     - apk update
     - apk upgrade
