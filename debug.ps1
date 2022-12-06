@@ -44,7 +44,7 @@ if ($cmd -eq "remote") {
 
 if (-not ([string]::IsNullOrEmpty($run))) {
     if ($run -eq "run") {
-        docker run --rm -ti -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT -h backend-reservations `
+        docker run --rm -ti -d -p $ENV:RESERVATION_PORT:$ENV:RESERVATION_PORT -h backend-reservations `
             -e RESERVATIONS_APP_PORT=$ENV:RESERVATION_PORT `
             -e KEYCLOAK_HOST=$Env:KEYCLOAK_HOST `
             -e KEYCLOAK_REALM=$Env:KEYCLOAK_REALM `
