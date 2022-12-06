@@ -64,8 +64,7 @@ Test:
   stage: test
   image: docker:latest
   services:
-    - name: docker:dind
-      alias: localhost
+    - docker:dind
   script:
     - apk update
     - apk upgrade
@@ -76,6 +75,8 @@ Test:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker run -d --name dogger --rm -p 80:9000 $CI_REGISTRY_IMAGE${tag} 
     - docker ps -a
-    - curl localhost:80
+    - sleep 15
+    - docker ps -a
+    - curl docker:80
     - python3 test/dbtest.py
     - docker stop dogger
