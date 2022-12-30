@@ -1,5 +1,5 @@
 # WebEng-22-JV-LM
-  An example configuration for the environment variables and the compose file is in this directory.
+  This projekt is written in python using the flask framework.
 
 ## Run projekt
 ### Compose
