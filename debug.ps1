@@ -7,11 +7,17 @@
 # Username + acces token
 
 function info {
+    Write-host "---------------------------------------------"
     write-host "You need to choose a build tag <local|remote>"
-    write-host "-> local: uses tag for local image."
-    write-host "-> remote: uses tag for gitlab-docker-registry and pushes docker image on gitlab-docker-registry."
-    write-host "-------- optional args --------"
-    write-host "<run> as second command. If set a example container starts."
+    write-host "    -> local: uses tag for local image."
+    write-host "    -> remote: uses tag for gitlab-docker-registry and pushes docker image on gitlab-docker-registry."
+    write-host ""
+    write-host "---->> optional args <<----"
+    write-host "    <run> as second command. If set a example container starts."
+    write-host ""
+    write-host "---->> example cmd <<----"
+    write-host "    ./debug.ps1 remote run"
+    write-host "---------------------------------------------"
     exit
 }
 
@@ -44,7 +50,7 @@ if ($cmd -eq "remote") {
 
 if (-not ([string]::IsNullOrEmpty($run))) {
     if ($run -eq "run") {
-        docker run --rm -ti -d -h backend-reservations `
+        docker run --rm -ti --net biletado_default -h backend-reservations `
             -e RESERVATIONS_APP_PORT=$ENV:RESERVATION_PORT `
             -e KEYCLOAK_HOST=$Env:KEYCLOAK_HOST `
             -e KEYCLOAK_REALM=$Env:KEYCLOAK_REALM `
