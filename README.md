@@ -1,19 +1,25 @@
 # WebEng-22-JV-LM
-
   An example configuration for the environment variables and the compose file is in this directory.
 
-## Database
+## Run projekt
+### Compose
+  Download *https://gitlab.com/biletado/compose* and replace *.env* and *compose.yml* with files of this directory.
 
-You have to change key `from` to `From` and `to` to `To`
+### Database preparation
+  You have to change key `from` to `From` and `to` to `To`
 
-## Build docker image
-
+## Build docker image locally
 ```powershell
-  ./debug.ps1
+  ./debug.ps1 local
+```
+
+## Run docker container local in biletado enviroment
+  Start the compose without the reservation backend. Then run following command:
+```powershell
+  ./debug.ps1 local run
 ```
 
 ## Container enviroment variable
-
 | Key                            | example value                    | default value        | explaination                         |
 |--------------------------------|----------------------------------|----------------------|--------------------------------------|
 | KEYCLOAK_HOST                  | keycloak                         | localhost            | Keycloak host                        |
@@ -30,5 +36,9 @@ You have to change key `from` to `From` and `to` to `To`
 | BACKEND_ASSETS_HOST            | traefik                          | localhost            | Hostname of the asset backend        |
 
 ## Logs
-
   The backend log files are located in the /log directory on the contianer. In order to be able to access the log files, this directory must be mounted on the host. The environment variable *LOG_FILE_PATH_HOST* specifies the directory for the log files on the host computer.
+
+## CI/CD Pipeline
+`biletado-reservations` uses _GitLab CI_ as a continuous integration system. The current pipeline compiles the project and pushes a Docker container to the gitlab-repository. The pipeline also runs system test and fails the build if these do not pass.
+
+The test files are in the test folder of the projekt.

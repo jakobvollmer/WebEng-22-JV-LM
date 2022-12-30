@@ -74,5 +74,5 @@ get-status:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker run --name dogger --rm -d -h backend-reservations -p 80:9000  $CI_REGISTRY_IMAGE${tag} 
     - sleep 15
-    - python3 test/dbtest.py
+    - python3 test/getStatus.py
     - docker stop dogger
