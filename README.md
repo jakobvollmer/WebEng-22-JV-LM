@@ -39,6 +39,6 @@
   The backend log files are located in the /log directory on the contianer. In order to be able to access the log files, this directory must be mounted on the host. The environment variable *LOG_FILE_PATH_HOST* specifies the directory for the log files on the host computer.
 
 ## CI/CD Pipeline
-`biletado-reservations` uses _GitLab CI_ as a continuous integration system. The current pipeline compiles the project and pushes a Docker container to the gitlab-repository. The pipeline also runs system test and fails the build if these do not pass.
+`biletado-reservations` uses _GitLab CI_ as a continuous integration system. The current pipeline compiles the project and pushes a Docker container to the gitlab-repository. The pipeline also runs a system test and fails the build if the test do not pass.
 
-The test files are in the test folder of the projekt.
+The test files are in the test folder of the projekt. There is only one test that does the status query to the api. This test is not very meaningful. But shows how to run a test automatically in the gitlab pipeline.
