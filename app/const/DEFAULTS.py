@@ -1,3 +1,4 @@
+# Default values for enviroment variables
 KEYCLOAK_HOST="localhost"
 KEYCLOAK_REALM=""
 BACKEND_ASSETS_HOST="localhost"

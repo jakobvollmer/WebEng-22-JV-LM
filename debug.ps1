@@ -21,6 +21,7 @@ function info {
     exit
 }
 
+# load enviroment variables from .env file
 get-content .env | foreach {
     $name, $value = $_.split('=')
     set-content env:\$name $value
@@ -48,6 +49,7 @@ if ($cmd -eq "remote") {
     docker push $imageTag
 }
 
+# start docker container
 if (-not ([string]::IsNullOrEmpty($run))) {
     if ($run -eq "run") {
         docker run --rm -ti --net biletado_default -h backend-reservations `
